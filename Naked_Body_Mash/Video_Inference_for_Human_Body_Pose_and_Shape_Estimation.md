@@ -51,7 +51,12 @@
   - ![plot](https://user-images.githubusercontent.com/69032315/146898899-4d553505-a98c-4bb0-8965-9c7881911a54.png) = Pose parameters at time step t
   - ![plot](https://user-images.githubusercontent.com/69032315/146898963-80a8dac0-aaaf-4af9-b148-7e313ec83376.png) = single body shape prediction for the sequence 
     - Made every timesteps but average pooling to get a single shape
-
-
-
+  
+- Temporal Encoder
+  - Temporal Encoder(Generator) from the given ![plot](https://user-images.githubusercontent.com/69032315/146899324-76c66106-6145-445b-a486-d8af36c9639c.png)(extracted feature of each frame by pretrained CNN), it outputs the corresponding pose and shape parameters in each frame -> Sent to GRU to get latent feature ![plot](https://user-images.githubusercontent.com/69032315/146899608-e1c80f58-686c-4d8d-9cac-c10faca3a682.png)
+ which is the input to T regressor,The regressor is initialized with mean pose Θ¯ and takes the input of Θk along with the features ![plot](https://user-images.githubusercontent.com/69032315/146899740-1d5a7114-9594-41b3-bc94-84948165f4d6.png) Uses 6D rotation representation instead of axis angle 
+  - Encoder's Loss Term : ![plot](https://user-images.githubusercontent.com/69032315/146899856-3f73cf19-3303-45a7-adde-79a3972c71db.png)
+    - 2D(x), 3D(X), SMPL(pose(seta), shape(beta)), adv(Discriminator)
+    - ![plot](https://user-images.githubusercontent.com/69032315/146899954-d1f06bd5-dfcc-4409-92c8-cfedbfadf35b.png)
+    - 2D keypoint loss -> To get this keypoint loss we need to do the orthographic projection(Get several points from the 3D and project it to 2D image) to the  3D joint locations and then compute to the 2D
 
