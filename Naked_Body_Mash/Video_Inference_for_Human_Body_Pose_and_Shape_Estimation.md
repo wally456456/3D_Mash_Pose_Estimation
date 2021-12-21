@@ -34,4 +34,5 @@
 # Approach!
 ![plot](https://user-images.githubusercontent.com/69032315/146897869-8064e41f-ab4e-4ed4-85f0-a36f7156561a.png)
 - V = input, T = Single Person $I_t$ = Information of Each Frame
-
+- Train a temporal encoder composed of bidirectional GRU -> outputs the latent variables containing information incorporated from past and future frames -> These features are used to regress the parameters of the SMPL body model at each time instance
+- <strong> Key Point <\strong> -> Why it is encoder not generator -> `Because it makes the mesh with the latent variable from the Features of pretrained CNN model`
