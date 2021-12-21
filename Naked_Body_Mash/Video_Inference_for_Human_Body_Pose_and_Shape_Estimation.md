@@ -33,3 +33,5 @@
 
 # Approach!
 ![plot](https://user-images.githubusercontent.com/69032315/146897869-8064e41f-ab4e-4ed4-85f0-a36f7156561a.png)
+- V = input, T = Single Person $I_t$ = Information of Each Frame
+
