@@ -32,4 +32,4 @@
   - In this paper author focuses on adversarially refining predicted poses conditioned on the sequential input data -> To do this, author employs the discriminator that encodes pose and shape parameters in a latent space using recurrent architecture and adversarial objective taking advantage of 3D mocap data
 
 # Approach
-- $$V = {I_t}^$$
+$V = {I_t}^$
