@@ -14,3 +14,22 @@
 - Video sequences already have the in-the-wild videos with 2D keypoint annotation -> The problem is how to obtain realistic 3D human motions in sufficient quality for adversarial training -> Facilitate the 3D motion-capture dataset AMASS
 - The process of Model Training
   - Uses Two sources of unpaired information by training GAN -> Given Video of a person, predict the parameters of SMPL Body model 	vs    Discriminator : Distinguish between real and regressed sequences  -> The regressor is encouraged to make plausible motions, on the other hand, Discriminator implicitly learn the statics, physics and kinematics(해부학적)of the human body -> Implement both temporal encoder and discriminator Using GRU to capture the sequential motion
+
+# Related Work
+- 3D Pose and Shape from a single image
+  -  Bottom up for regression approaches, Top down for optimization approaches, multi 	camera setting using keypoints and silhouettes as input -> These are weak, Don’t generalize well
+  - SMPLify : Fits the SMPL model to the output of CNN keypoint detector one of first end-to-end approaches
+  - Previous DNN are trained by silhouettes. Recently DNN are trained by the pixels <- Because of lack of in-the-wild 3D ground-truth labels, they use weak supervision(the unprecise label data) signals(derived from 2D keypoint reprojection loss)
+
+
+- 3D Pose and Shape from video
+  - Recent deep learning methods that estimate the pose and shape from video focus on joint locations only
+  - Two ways of approach
+    - 1. two-stage approach : lift off-the-shelf 2D keypoints -> 3D joint location
+    - 2. End-to-End methods : Directly regress 3D joint locations -> Good indoor, Poor for outdoor data
+- GANs for sequence modeling
+  - Recently, GANs and recurrent architectures are combined to translate the sequence to sequence tasks -> Combining these two (GANs + Recurrent architectures) can predict future motion sequences based on previous ones or generate human motion sequences
+  - In this paper author focuses on adversarially refining predicted poses conditioned on the sequential input data -> To do this, author employs the discriminator that encodes pose and shape parameters in a latent space using recurrent architecture and adversarial objective taking advantage of 3D mocap data
+
+# Approach
+- V = {I_t}^
