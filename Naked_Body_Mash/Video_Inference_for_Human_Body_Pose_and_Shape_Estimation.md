@@ -31,7 +31,7 @@
   - Recently, GANs and recurrent architectures are combined to translate the sequence to sequence tasks -> Combining these two (GANs + Recurrent architectures) can predict future motion sequences based on previous ones or generate human motion sequences
   - In this paper author focuses on adversarially refining predicted poses conditioned on the sequential input data -> To do this, author employs the discriminator that encodes pose and shape parameters in a latent space using recurrent architecture and adversarial objective taking advantage of 3D mocap data
 
-# Approach!
+# Approach
 ![plot](https://user-images.githubusercontent.com/69032315/146897869-8064e41f-ab4e-4ed4-85f0-a36f7156561a.png)
 - V = input, T = Single Person $I_t$ = Information of Each Frame
 - Train a temporal encoder composed of bidirectional GRU -> outputs the latent variables containing information incorporated from past and future frames -> These features are used to regress the parameters of the SMPL body model at each time instance
@@ -60,3 +60,41 @@
     - ![plot](https://user-images.githubusercontent.com/69032315/146899954-d1f06bd5-dfcc-4409-92c8-cfedbfadf35b.png)
     - 2D keypoint loss -> To get this keypoint loss we need to do the orthographic projection(Get several points from the 3D and project it to 2D image) to the  3D joint locations and then compute to the 2D
 
+- Motion Discriminator 
+  - It is important to discriminate the sequences not single shot because of the ignorance of temoral continuity of movement
+  - To mitigate this author uses `Motion Discriminator` -> discriminate whether the generated sequence of poses corresponds to realistic sequence or not
+  - The output of generator is given as input of multi-layer GRU model(estimate latent code hi at each time step i) to aggregate the hidden states hi author uses self-attention 
+  - Finally a linear layer predicts a value between 0 and 1 to predict whether the input is real or fake
+  - Dicriminator's Loss Function : ![plot](https://user-images.githubusercontent.com/69032315/146900340-29551fe8-568f-4a68-aa0f-c506a2f33cc9.png)
+  - PR = real motion sequence
+  - PG = generated motion sequence
+  
+- (Ablation) Motion Prior(MPoser)
+  - Mposer = sequenctial VAE on the AMASS dataset to learn latent representation of plausible human motions
+  - Use Mposer as a regularizer to penalize implausible sequences
+  - Mposer is encoder decoder structure consist of GRU layers that output latent vector of each timestep
+  - When Mposer is employed then DM is disabled and add prior loss ![plot](https://user-images.githubusercontent.com/69032315/146900587-816a8567-75d4-4229-90f1-a938beafc57f.png)
+
+- Self-Attention Mechanism
+  - The final hidden state holds a summary of the information of sequence
+  - Use self-attention to amplify the contribution of the most important frames in final representation
+  - r(learned convex combination of the hidden states) is the representation of Θˆ
+    - Procedure of producing r -> hi(representing hidden state at each frame) are averaged and max pooled -> Two representation r(avg), r(max) are concatenated to constitute the final static vector r(used fo the Dm fake/real decision)
+- Training Procedure
+  - Use ResNet-50 as an encoder pretrained on single frame pose and shape estimation task -> outputs   ![plot](https://user-images.githubusercontent.com/69032315/146900857-a2f60794-49b3-4a0b-8636-efe98c22e078.png) -> Do not update ResNet
+  - T(sequence length) = 16
+  - Temporal encoder = 2-layer GRU with hidden size of 1024
+  - SMPL regressor = 2 fully-connected layer with 1024 neurons each -> final layer  ![plot](https://user-images.githubusercontent.com/69032315/146901013-e79ef87e-b6e1-420f-afbf-80b72b23f860.png)->(pose, shape, camera parameters)
+  - Self attention = 2MLP layers with 1024 neurons each and tanh activation 
+  - Adam optimizer = 0.00005(Generator) , 0.0001(Discriminator)
+# Experiments
+![plot](https://user-images.githubusercontent.com/69032315/146901273-c5b5b5d6-f3f4-41d4-9ac8-07c7bff86a28.png)
+- PA-MPJPE = The differences of size, location, rotation of subject’s contact  
+- MPJPE = The differences of Joint(unit = mm)
+- PCK(percentage of correct keypoints) = Gives threshold to the difference 
+
+# Conclusion
+  - (1) Introducing a recurrent architecture propagates information over time
+  - (2) Introducing discriminative training using AMASS
+  - (3) Uses self-attention in discriminator to focus on the important temporal structure of human motions
+  - (4) Giving Ablation method(MPoser) but it is less effective than Discriminator
