@@ -6,7 +6,7 @@
 # Introduction
 - The problem is the lack of 3D annoted Dataset that describes `diversity` and `complexity` of human's motion
 - Auto-Encoding Variational Bayes(IEEE), Human Mesh Recovery from Monocular images via a skeleton-distangled representation(ICCV) uses the data combined with `3D indoor dataset` and `2D ground truth Videos or pseudo-ground truth keypoint annotation`
-  - BUT!!!
+  BUT!!!
   - Indoor 3D dataset's problem : Number of subject, Range of motion, Complexity of Image is Limited
   - Lack of 2D ground truth Video data
   - Psuedo-ground-truth 2D label is not adequate for 3D human motion
