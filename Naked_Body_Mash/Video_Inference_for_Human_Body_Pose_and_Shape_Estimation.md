@@ -1,5 +1,5 @@
 # Title : VIBE: Video Inference for Human Body Pose and Shape Estimation(CVPR-2020)
-## Muhammed Kocabas, Nikos Athanasiou, Michael J. Black
+### Authors : Muhammed Kocabas, Nikos Athanasiou, Michael J. Black
 # Abstract
 - Due to the lack of ground truth Data of 3D pose estimation current `3D pose and shape estimation`'s SOTA model is not resulting Accurate and Natural results
 - Video Inference for Body Pose and Shape Estimation(VIBE) allows 3D ground truth label in AMASS(large-scale motion capture dataset, Unparied, In the wild, 2D keypoint annotation)
