@@ -36,3 +36,22 @@
 - V = input, T = Single Person $I_t$ = Information of Each Frame
 - Train a temporal encoder composed of bidirectional GRU -> outputs the latent variables containing information incorporated from past and future frames -> These features are used to regress the parameters of the SMPL body model at each time instance
 - <strong> Key Point <\strong> -> Why it is encoder not generator -> `Because it makes the mesh with the latent variable from the Features of pretrained CNN model`
+
+- SMPL
+  - Parameters
+  - Pose ![plot](https://user-images.githubusercontent.com/69032315/146898571-6b7431ff-18ae-405a-a7ab-22a18eadf254.png) 
+    - Consists of global body rotation and relative rotation of 23 joints in axis-angle format
+  - Shape ![plot](https://user-images.githubusercontent.com/69032315/146898666-f3ed233d-7c39-4b35-820a-10bcd0487da0.png)
+    - 10 Coefficient of a PCA shape space
+  - Given these parameters SMPL model is a differentiable function  ![plot](https://user-images.githubusercontent.com/69032315/146898809-f48af0e0-2b0a-499f-9819-9176738b77f3.png)
+   that outputs a posed 3D mesh (Because it has the randomness)
+  
+- With Videos
+  - ![plot](https://user-images.githubusercontent.com/69032315/146898867-a34cb07b-d628-4709-810e-d241d7850773.png)
+  - ![plot](https://user-images.githubusercontent.com/69032315/146898899-4d553505-a98c-4bb0-8965-9c7881911a54.png) = Pose parameters at time step t
+  - ![plot](https://user-images.githubusercontent.com/69032315/146898963-80a8dac0-aaaf-4af9-b148-7e313ec83376.png) = single body shape prediction for the sequence 
+    - Made every timesteps but average pooling to get a single shape
+
+
+
+
