@@ -2,9 +2,4 @@
 
 ## Naked Body Mash
 
-Θˆ =
-[(ˆθ1, · · · ,
-ˆθT ), βˆ]
-
-M(θ, β) ∈ R
-6890×3
+VIBE : Video Inferneces for Human Body Pose and Shape Estimation
