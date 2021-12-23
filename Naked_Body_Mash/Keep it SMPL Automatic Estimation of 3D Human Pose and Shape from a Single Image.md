@@ -40,8 +40,23 @@
 -> SMPL 모델을 활용하여 포즈에 대한 사전확률을 구해준다 
 
 -> 여기서 얻은 요인들은 신체 부위의 상대적인 회전으로 표현되는 포즈와 함께 포즈로부터 형태를 잡는다 
+
 -> 이 요인들을 활용하여 포괄적인 multi-modal pose prior를 학습시킨다
 
+# Related Work
+
+- Shape prior = 뼈의 길이에 anthropometric(인체측정학적) 제약을 한다
+- Pose prior = 그럴듯한 포즈만 남기고 불가능한 포즈는 배제하는 것
+
+- 기존에 많이 사용되었던 multi-image들이나 video sequence를 활용하는 방식이 아닌 static한 이미지를 활용한다
+- 사진의 배경에 대한 정보가 없어도 된다
+
+- 이전의 대부분의 연구들은 이 문제를 3D skeleton을 찾는 문제로 정의를 했다 왜냐하면 3D joints 를 project 시켜서 2D joints를 잘 찾을 수 있다고 생각하였기 때문 -> 따라서 이전 연구는 skeleton 이 특정 포즈에 있는 것을 ‘shape’로 정의하였다 -> 이 논문의 저자들은 3D 인간의 신체에 pose-invariant surface(자세에도 변하지 않는 표면)을 shape라 지정하고 pose와는 다른 의미로 사용한다 
+
+- 3D pose from 2D joints 
+이 방법론은 모두 2D 관절과 3D 골격 사이의 알려진 연관성을 가정한다
+이 방법론은 사지 길이의 통계량에 따라 다른 가정을 한다
+이 방법론은 weak, non-existent of human shape이다 -> 저자의 방법론은 `3D pose and shape`인데 이것은 수천명의 사람들에게서 인체 측정학적 제약들을 추출한다 -> 3D shape를 획득할 수 있으므로 `interpenetration`, `impossible poses`를 피할 수 있다
 
 
 
