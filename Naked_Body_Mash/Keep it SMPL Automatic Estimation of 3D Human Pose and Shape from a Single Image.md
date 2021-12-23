@@ -66,7 +66,39 @@
 - Making it automatic
         -저자들은 Deepcut method를 통해 정확한 joint position estimation을 자동화 할 수 있었다
 
+# Method
 
+- SMPLify Overview : 단일 이미지를 인풋으로 가짐 -> DeepCut CNN을 활용하여 2D body joints ![plot](https://user-images.githubusercontent.com/69032315/147280634-7934d653-3d24-4ad8-8300-2caac17dcfd0.png)
+ 를 예측함 -> 각 2D joint i에 CNN은 신뢰도 값 ![plot](https://user-images.githubusercontent.com/69032315/147280658-e08ee7d3-20f4-4ea8-bcea-45f6f9a63d00.png)
+를 제공한다 -> 3D body model을 fitting(SMPL) 시켜준다 이때 projected joints of the model은 robust weighted error term을 최소화 시켜준다 
+
+
+- Body model은 함수  ![plot](https://user-images.githubusercontent.com/69032315/147280708-862177b1-71a6-4d4c-86e2-ba0afb92c658.png)로 정의되어 진다
+    - Parameter 정의
+    - beta = shape, seta = pose, gamma = translation
+        - beta
+            - 저차원의 shape space의 상관계수(training set에서 학습된) 
+            - male, female gender-neutral에 대한 고려를 해준다 -> pink = gender specific, light blue = gender-neutral
+        - Seta
+            -  body의 pose는 23개의 joints 들로부터 정의된다
+            - Seta는 신체 parts들의 상대적인 rotation의 axis-angle representation을 대표한다
+            - SMPL에서는 joints는 표면 vertices들의 sparse linear combination 또는 function of the shape coefficients이다
+            - Joint들은 global rigid(엄격한) transformation을 통해 임의적인 포즈에 놓일 수 있다
+            
+            - ![image](https://user-images.githubusercontent.com/69032315/147281052-6a6197e5-1462-478d-80db-ed1fed942295.png) = posed 3D joints
+            - i = Joints,  ![plot](https://user-images.githubusercontent.com/69032315/147281537-43c2342d-3c8b-4267-b203-5e34773072c0.png) = 세타 값에서부터 유도된 global rigid transformation 
+SMPL은 pose-dependent 변형을 정의한다
+
+- SMPL 모델과 DeepCut의 skeleton은 조금의 joints에 차이가 있다 
+
+-> Deepcut의 joint들을 가장 유사한 SMPL 조인트와 연관시킨다 
+
+-> SMPL의 joint들을 이미지에 project하기 위해서 저자들은 perspective camera 모델을 사용한다(Denoted as K)
+
+
+
+    
+    - Output의 형식 : triangulated surface   <- 6890개의 vertices 
 
 
 
