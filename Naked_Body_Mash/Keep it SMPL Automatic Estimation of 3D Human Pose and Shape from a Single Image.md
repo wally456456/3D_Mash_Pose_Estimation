@@ -54,9 +54,20 @@
 - 이전의 대부분의 연구들은 이 문제를 3D skeleton을 찾는 문제로 정의를 했다 왜냐하면 3D joints 를 project 시켜서 2D joints를 잘 찾을 수 있다고 생각하였기 때문 -> 따라서 이전 연구는 skeleton 이 특정 포즈에 있는 것을 ‘shape’로 정의하였다 -> 이 논문의 저자들은 3D 인간의 신체에 pose-invariant surface(자세에도 변하지 않는 표면)을 shape라 지정하고 pose와는 다른 의미로 사용한다 
 
 - 3D pose from 2D joints 
-이 방법론은 모두 2D 관절과 3D 골격 사이의 알려진 연관성을 가정한다
-이 방법론은 사지 길이의 통계량에 따라 다른 가정을 한다
-이 방법론은 weak, non-existent of human shape이다 -> 저자의 방법론은 `3D pose and shape`인데 이것은 수천명의 사람들에게서 인체 측정학적 제약들을 추출한다 -> 3D shape를 획득할 수 있으므로 `interpenetration`, `impossible poses`를 피할 수 있다
+        - 이 방법론은 모두 2D 관절과 3D 골격 사이의 알려진 연관성을 가정한다
+        - 이 방법론은 사지 길이의 통계량에 따라 다른 가정을 한다
+        - 이 방법론은 weak, non-existent of human shape이다 -> 저자의 방법론은 `3D pose and shape`인데      - 이것은 수천명의 사람들에게서 인체 측정학적 제약들을 추출한다 -> 3D shape를 획득할 수 있으므로`interpenetration`, `impossible poses`를 피할 수 있다
+
+-3D pose and shape
+        - 전의 Approach들은 2D joints 들로부터 3D body shape를 추정하는 방법론은 없었다 -> SMPL을 이용하여 가능하게 되었다(SCAPE랑은 다르게 explicit한 3D joints를 가지고 있다)
+        - SMPL은 joints들의 위치가 어떻게 3D surface of the body와 관련되어 있는지를 정의한 다음 shape를 joints들로부터 추론하게 하는 것을 가능하게 한다
+        - SMPL은 사지의 길이가 정확하게 같지 않아서 완벽하지 않을 수 있다 -> 그러나 SMPL은 해부학적 관절을 나타내는 것이 아니라 표면 정점의 기능으로 관절을 나타낸다 -> 이것은 모델 트레이닝 중에 관절과 모양을 결합시킨다(이 두 요소들을 같이 활용하는 것이 중요하다)
+
+- Making it automatic
+        -저자들은 Deepcut method를 통해 정확한 joint position estimation을 자동화 할 수 있었다
+
+
+
 
 
 
