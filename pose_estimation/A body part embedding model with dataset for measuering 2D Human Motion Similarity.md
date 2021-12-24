@@ -80,6 +80,30 @@
 
 ![plot](https://user-images.githubusercontent.com/69032315/147301908-a699ed39-36c8-4b53-b36b-1c8653379b35.png)
 
+- Losses
+	- ![plot](https://user-images.githubusercontent.com/69032315/147312724-673db9dd-fe7f-451d-ab4a-742dfdc89fc5.png) = ![plot](https://user-images.githubusercontent.com/69032315/147312750-8ef71b62-ebab-4560-8437-7b5f98a21ee9.png) 에서 얻은 ![plot](https://user-images.githubusercontent.com/69032315/147312767-42296f09-9cc5-44d4-98a5-3020c436ecda.png)의 motion embedding result
+	- 이렇게 한다면 triplet loss 는 다음과 같이 정의된다
+![plot](https://user-images.githubusercontent.com/69032315/147312809-e75d5908-866e-42dc-a01a-a95b1678448f.png)
+	- d(…) = distance metric,   ![plot](https://user-images.githubusercontent.com/69032315/147312837-352b8658-99d4-4fb9-b9b1-37704198d319.png)
+= ![plot](https://user-images.githubusercontent.com/69032315/147312849-2d4a6bb4-2d6c-49b8-afe1-7807c7e6d88b.png)
+과  ![plot](https://user-images.githubusercontent.com/69032315/147312864-f6e9d14a-bae9-4954-833e-1492203d0111.png)의 margin(차이) 
+	- ![plot](https://user-images.githubusercontent.com/69032315/147312893-4e732a24-8359-451e-9841-2ab536ae5242.png) = hinge function(두 class 사이의margin을 최대로 하게하는 function)
+	- Triplet loss는 reference 와 positive sample의 거리를 가깝게 reference와 negative sample은 멀리 배치하게 하지만 어떻게 ref 와 pos가 유사한지에 대한 정보를 가지고 있지는 않다	
+	- 이 한계점을 극복하기 위해서 motion variation score를 loss term에 고려하여 같은 category의 행동의 sample들에게 적용시켜 주었다
+![plot](https://user-images.githubusercontent.com/69032315/147312930-247d55b9-101e-4b10-95a4-d6a7615514ae.png)
+![plot](https://user-images.githubusercontent.com/69032315/147312935-e84eb3f5-f4ba-4630-92e1-5e38a1df611d.png)
+	- motion variation loss는 positive, semi-positive sample를 motion variation에서 정의해준 일정 distance project(투영)시켜준다 -> skeleton을 움직이게 할 수 있는 Energy, Distance, Height 와 같은 variable이 존재한다고 가정한다
+
+	- Fig 6에서  ![plot](https://user-images.githubusercontent.com/69032315/147313002-d5973d69-d227-45af-a4f4-80900c05d2a7.png)
+을 각 요소가 각 variable들 간에 motion m 에 해당하는 특성적 벡터라고 정의한다.
+	- m과 m’’가 같은 motion class에 속하기 때문에 ![plot](https://user-images.githubusercontent.com/69032315/147313012-d56683f9-0eb9-4925-b0c8-32c19efd66e5.png)
+ 은 같은  ![plot](https://user-images.githubusercontent.com/69032315/147313017-873d261a-1623-40e0-bc9b-03f49148c740.png)개의 variable 수를 가지고 있다
+ 	- ![plot](https://user-images.githubusercontent.com/69032315/147313054-aedc5b90-e52a-4000-932c-1d378873ee2f.png)between m과 m’’ 은 다음과 같이 정의된다
+	![plot](https://user-images.githubusercontent.com/69032315/147313070-19284e37-983f-4e9f-b50a-5e2c58c1a8b7.png)
+
+	- Motion variation loss 인 ![plot](https://user-images.githubusercontent.com/69032315/147313103-a6c1c6ad-160d-483e-b20a-70c548125802.png) 은 다음과 같이 정의된다
+
+
 
 
 
