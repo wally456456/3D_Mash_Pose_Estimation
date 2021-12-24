@@ -102,8 +102,20 @@
 	![plot](https://user-images.githubusercontent.com/69032315/147313070-19284e37-983f-4e9f-b50a-5e2c58c1a8b7.png)
 
 	- Motion variation loss 인 ![plot](https://user-images.githubusercontent.com/69032315/147313103-a6c1c6ad-160d-483e-b20a-70c548125802.png) 은 다음과 같이 정의된다
+![plot](https://user-images.githubusercontent.com/69032315/147313144-b35e6372-8646-409c-9e2f-80c60f6b21c2.png)
+	- d(…) = distance metric, 하이퍼파라메터 Alpha, Beta = 1, 0.1
+	- 이러한 loss를 설정함으로써 positive and semi-positive samples 사이의 motion embedding vectors 가 characteristic vector에 의존적인 관계를 형성하게 만든다
 
+	- (1)을 구했던 것 처럼  ![plot](https://user-images.githubusercontent.com/69032315/147313178-87b3adf0-9ac3-4df7-8c94-d3f9f6efaef0.png)
+ 도 구할 수 있다
+	- 최종 similarity loss term :
+	![plot](https://user-images.githubusercontent.com/69032315/147313190-bb83feb7-3fa5-4133-aad7-f8b2461bc4d5.png)
+	- ![plot](https://user-images.githubusercontent.com/69032315/147313204-523b64bc-583b-484f-86e8-1d41e106975d.png)(![plot](https://user-images.githubusercontent.com/69032315/147313223-6222de41-bcff-48e8-bc49-b15a017d97ab.png)
+ 의 output)은 motion, skeleton, camera view의 concat된 embedding vector를  ![plot](https://user-images.githubusercontent.com/69032315/147313238-c2577a35-83f2-4da7-8466-5eac7bf7630c.png)
+에 제공함으로써 얻을 수 있다
 
+### Summary of measuring motion similarity
+![plot](https://user-images.githubusercontent.com/69032315/147313244-d9f6d5d2-1567-41fe-a6eb-7a256f0fdeba.png)
 
 
 
