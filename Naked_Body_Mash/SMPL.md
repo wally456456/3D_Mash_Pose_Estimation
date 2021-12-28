@@ -149,15 +149,33 @@
 	- 그림 3(b)는  ![plot](https://user-images.githubusercontent.com/69032315/147598242-bca5a538-1883-48f4-bfa3-e97bae43805a.png)에 shape, blend shape를 새로운 body shape를 생성하기위해 적용해준 것을 읨한다
 
 - Pose blend shapes
-	-  ![plot](https://user-images.githubusercontent.com/69032315/147598272-a4f49319-b51d-4e29-b8d1-dafa0e01a5b9.png)를 pose vector ![image](https://user-images.githubusercontent.com/69032315/147598290-92fae679-cdd1-4ea4-8cdc-eb34921dda43.png)
- 를 part relative rotation matrices ![image](https://user-images.githubusercontent.com/69032315/147598305-b411b0cb-21d7-4e71-9838-d22a32a95a82.png)
- 의 결합으로 mapping시켜주는 함수이다
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147598272-a4f49319-b51d-4e29-b8d1-dafa0e01a5b9.png)를 pose vector ![plot](https://user-images.githubusercontent.com/69032315/147598290-92fae679-cdd1-4ea4-8cdc-eb34921dda43.png)를 part relative rotation matrices ![plot](https://user-images.githubusercontent.com/69032315/147598305-b411b0cb-21d7-4e71-9838-d22a32a95a82.png) 의 결합으로 mapping시켜주는 함수이다
+	- 저자들의 rig가 23개의 관절을 가지고 있으므로  ![plot](https://user-images.githubusercontent.com/69032315/147598427-d389feea-6ddd-4f2a-94ac-e37cbd0515f8.png)의 vector 길이는 (23x9 = 207)이다
+	- ![plot](https://user-images.githubusercontent.com/69032315/147598452-7e0b82b4-e617-4f42-9fa4-dc72e13b3a66.png) 의 성분들은 joint angles의 sin and cosine 값들로 이루어져 있으므로  ![plot](https://user-images.githubusercontent.com/69032315/147598469-5be7e607-286a-497f-85cf-10861a32c4e2.png)는 과 non-linear한 관계이다
+	- 저자들의 연구가 이전의 연구들과 다른 점은 pose blend shapes의 영향을 ![plot](https://user-images.githubusercontent.com/69032315/147598504-1fc8355e-3182-407a-8051-dd3ccd35a7be.png)![plot](https://user-images.githubusercontent.com/69032315/147598514-8e189223-1bbd-432d-b281-1cf087f5bc5d.png)  에서 linear하게 만들어 주는 것이다
+		- ![plot](https://user-images.githubusercontent.com/69032315/147598527-55dbe1ab-cd2c-467a-abfc-ed2d7037c515.png) = rest pose를 의미한다 
+	- ![plot](https://user-images.githubusercontent.com/69032315/147598540-96704dcf-6d99-4950-9b45-e1f33848e671.png)  을 ![plot](https://user-images.githubusercontent.com/69032315/147598554-89e8ce99-58cb-4fcc-a365-09e6f3b91291.png) ![plot](https://user-images.githubusercontent.com/69032315/147598568-86769923-ab0e-4fc3-bdd6-feb946faf2b5.png) 성분이라고 정의하면 rest template의 vertex deviation은 
+![plot](https://user-images.githubusercontent.com/69032315/147598592-ff15e592-ecde-4284-a7d0-e31a5d28eca4.png)로 표현할 수 있다
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147598615-e1c10161-7113-4971-8fa2-7845a5ad1aa0.png) = blend shapes, vertex displacement의 vector
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147598630-cb3b3488-c721-43c8-9821-879ee63148e4.png) = 207개의 모든 pose blend shape
+	- 이렇게 하면 pose blend shape 함수인 ![plot](https://user-images.githubusercontent.com/69032315/147598649-9117b18d-c357-43f6-ad36-1481aa7c3720.png)는 matrix P로 완전히 정의 될 수 있다
+	- ※ rest pose rotation vector ![plot](https://user-images.githubusercontent.com/69032315/147598662-aac25306-e75c-49f6-b1db-3f282ddbbbea.png) 를 subtract해주는 것은 rest pose에서의 pose blend shape에 대한 기여가 0이라는 것을 주의할 것(animation을 할 때 중요함)
 
+- Joint locations
+	- body shape에 따라 joint location도 다르다
+	- 각 joint들은 rest pose의 3D location들로 represent된다
+	- joint 들을 body shape의 함수 ![plot](https://user-images.githubusercontent.com/69032315/147598689-5d0d5690-0797-4627-8472-9f1ab4e03f14.png) 로 정의한다
+![plot](https://user-images.githubusercontent.com/69032315/147598695-892237e1-fb29-4cd4-bed8-2c4049e19ac5.png)
+	- J = rest vertices를 rest joints들로 변환해주는 matrix
 
+	- regression matrix J를 많은 다른 사람들과 다양한 포즈들을 활용하여 학습한다
 
+- SMPL model
+	- 위와 같은 Equation들을 통해 SMPL model의 parameter들을 ![plot](https://user-images.githubusercontent.com/69032315/147598732-9c7e5caa-56ea-440a-a682-0a8f09bdb314.png)
+ 로 완전히 준비할 수 있다
+	- 학습이 진행되고 나서 바뀐 포즈들은 고정이 되고 새로운 body shapes와 pose들은  와  의 변화로 인해 만들어진다
 
-
-
+- 최종적으로 SMPL은 다음과 같이 정의된다
 
 
 
