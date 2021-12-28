@@ -176,17 +176,34 @@
 	- 학습이 진행되고 나서 바뀐 포즈들은 고정이 되고 새로운 body shapes와 pose들은  와  의 변화로 인해 만들어진다
 
 - 최종적으로 SMPL은 다음과 같이 정의된다
+![plot](https://user-images.githubusercontent.com/69032315/147598758-871f83ed-b0be-413e-9780-8bbdd2bea5fb.png)![plot](https://user-images.githubusercontent.com/69032315/147598763-b1b34bd9-9940-4fc5-b381-0d8242de7c01.png)
+	- 그리고 각 vertex들은 다음과 같이 변환이 가능하다
+![plot](https://user-images.githubusercontent.com/69032315/147598773-71153a73-8fb7-412b-b873-5d9586a23f1e.png)
+
+![plot](https://user-images.githubusercontent.com/69032315/147598781-9a59eaa7-3437-4c5e-a83d-786dc1bf27e0.png)![plot](https://user-images.githubusercontent.com/69032315/147598788-cc1f8a06-6229-4bcb-a820-2720e5c2e627.png)일 때 
+		- 바로 위의 식은 vertex i 가 blend shapes이랑  ![plot](https://user-images.githubusercontent.com/69032315/147598823-37626483-d6e6-4eec-8ce8-cbb0b2f080ea.png)
+ (template vertex  ![plot](https://user-images.githubusercontent.com/69032315/147598835-b9a715c7-7ba6-4437-a264-f9440ff264cd.png)
+에 대응되는 elements of shape and pose blend shapes)가 적용이 된 후의 값을 대표한다
 
 
+# Training
+
+- 같은 topology(위상배치)를 가진 2개의 mesh의 형태와 저자들의 template의 형태와 같은 데이터셋(multi-pose dataset, multi-shape dataset)을 활용 -> 이런 data는 3D 고해상도이다 저자들은 이것을 registration으로 명명한다
+![plot](https://user-images.githubusercontent.com/69032315/147598883-99d6f471-3999-4fc9-8bef-2618a7ed9b35.png)
+-  ![plot](https://user-images.githubusercontent.com/69032315/147598909-da95fabf-32b4-4ed2-b7b1-a3b85a7b0ef0.png)
+ 번째 multi-pose dataset의 mesh = ![plot](https://user-images.githubusercontent.com/69032315/147598918-7bd55c69-0d82-48f7-87a4-ccdc26d94861.png)
+ , ![plot](https://user-images.githubusercontent.com/69032315/147598941-28108435-c215-45f4-bd1f-ca2060710184.png)
+ 번째 multi-shape dataset의 mesh =  ![plot](https://user-images.githubusercontent.com/69032315/147598946-3bc617aa-b104-4b9a-89c3-2f05c31a82cc.png)
+- 저자들의 목적은 파라메터 ![plot](https://user-images.githubusercontent.com/69032315/147598955-0fd3bb3e-b6f6-49b7-95f5-d81468cfe6b3.png)
+를 vertex restruction error를 최소화하는 것을 목적으로 학습시킨다
+- Shape와 pose에 대한 것을 따로 학습시켜 최적화 과정의 복잡성을 낮춘다
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147598987-1a21931f-ab63-4899-bdfc-4faa8777d775.png)를 multi pose dataset, ![plot](https://user-images.githubusercontent.com/69032315/147598992-fd401dd3-b3ed-4a00-9cf3-04321f66f3e0.png) 를 multi shape dataset에서 학습
 
 
-
-
-
-
-
-
-
+- Pose Parameter Training
+	- 우선 위의 파라메터 J,W,P를 학습시키고 그 후 ![plot](https://user-images.githubusercontent.com/69032315/147599014-b1e832cd-d10c-4208-853a-080d5b325323.png)
+ (rest template)과 ![plot](https://user-images.githubusercontent.com/69032315/147599027-b900546c-dc8f-4f84-b899-3fad33d750a4.png) (joint location), ![plot](https://user-images.githubusercontent.com/69032315/147599042-05734aa6-ab15-448b-99d8-9afa392c445c.png) (pose parameter), 들을 각 registration(j)에 적용시켜준다
+	
 
 
 
