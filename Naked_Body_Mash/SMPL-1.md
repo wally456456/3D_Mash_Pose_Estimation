@@ -263,9 +263,27 @@
 		- ![plot](https://user-images.githubusercontent.com/69032315/147634056-e2924e28-1a8a-4296-bb40-e0b0a52d7880.png) , ![plot](https://user-images.githubusercontent.com/69032315/147634065-c42c706a-2f96-4673-a5e9-2df84fdbcc09.png) = mean shape, mean joint location (from multi-pose database)
 		- ![plot](https://user-images.githubusercontent.com/69032315/147634073-eb599922-cd9b-455b-b2bf-5bb3209a195b.png) 은 모델과 Registration의 edge를 표현하는 것이다
 		- Edge를 구하는 방법은 pair of neighboring vertices들을 subtract해주어 얻는다
-		-  (average generic shape)를 사용하여 pose를 estimate하기 위해서 저자들은 다음 sum of squared edge differences들을 최소화 시킨다 
-  
+		- ![plot](https://user-images.githubusercontent.com/69032315/147634177-bd755f3c-4a0a-4d9a-9be9-949c835d8e44.png) (average generic shape)를 사용하여 pose를 estimate하기 위해서 저자들은 다음 sum of squared edge differences들을 최소화 시킨다 
+  ![plot](https://user-images.githubusercontent.com/69032315/147634191-d7dab830-bb15-42f0-8968-967e8ba26c65.png)![plot](https://user-images.githubusercontent.com/69032315/147634196-37d68b67-a9cb-4713-94f5-389c929df4bf.png)
+
+
 		- 위의 식은 저자들로 하여금 subject specific한 shape를 모르는 상태에서 좋은 pose estimate를 하게 한다
 
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147634226-f719e0fc-f487-44f1-86e3-e7ab242634b7.png)를 안 상태에서  ![plot](https://user-images.githubusercontent.com/69032315/147634228-a4d05e52-0fea-4b1e-9e59-56b1465ce813.png)는 다음과 같은 최소화를 통해 얻게된다 
+![plot](https://user-images.githubusercontent.com/69032315/147634249-55e81953-ad3a-42c1-8c8c-f15b4f7f9db6.png)
+
+		- 위의 식은 shape가 자세를 취했을 때 training registration과 일치하는지를 계산한다
+
+	- 다음으로는 ![plot](https://user-images.githubusercontent.com/69032315/147634270-4de3cdde-77ef-444e-9c06-f6c030bea158.png) 를 얻기 위해 ![plot](https://user-images.githubusercontent.com/69032315/147634285-a58eb713-f025-4894-89f0-472d0aef933b.png)  에 PCA를 진행시켜 준다
+		- 이 과정은 vertex offset의 분산 설명력을 극대화 시킨다
+	- ※ vertices를 기반으로 shape 를 구축해 나가는 과정에서 pose를 optimization시켜주는 것은 중요하다 -> 사용하지 않으면 pose variation of subjects in shape training dataset이 shape blend shapes에 갇혀서 shape와 pose를 decompose하지 못할 것이다
+
+	- 위의 과정들을 요약해 놓은 것
+		- (1) 수식(14)에서  (pose parameter)는 registration edge과 모델의 차이를 최소화하는 방향으로 초기값을 수식(15)의 average template shape를 활용하여 설정한다
+		- (2)  ![plot](https://user-images.githubusercontent.com/69032315/147634309-720e417f-dc41-45e9-8ffd-682d9c4a04f5.png)는 수식(14)를 최소화하는 방향으로 추정된다
+		- (3)  ![plot](https://user-images.githubusercontent.com/69032315/147634320-4e3bb1b6-5f8b-488c-aa48-fd5973d0db6e.png)를 통하여 J를 얻어낸다
+		- (4) ![plot](https://user-images.githubusercontent.com/69032315/147634329-268ad3dd-bfd6-43cb-9408-68ba896ce6ed.png) (normalized subject)를 PCA를 돌려서 ![plot](https://user-images.githubusercontent.com/69032315/147634349-4b02bebe-d4bd-4a82-a280-861865ef6b24.png) 를 얻어낸다
+		- (5) 최종 모델은  ![plot](https://user-images.githubusercontent.com/69032315/147634354-be52e125-f520-4589-a845-88db11d2f0af.png)로 정의된다
+		- ※  ![plot](https://user-images.githubusercontent.com/69032315/147634365-45d3dc53-83be-4198-bc9a-4646c404405b.png)를 제외한 모든 gradient들은 dogleg minimization을 통해서 minimizing 해주었고 gradient들은 Chumpy framework 를 활용하여 자동적으로 차이를 구해주었다
 
 
