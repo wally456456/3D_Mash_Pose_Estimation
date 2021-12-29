@@ -203,6 +203,35 @@
 - Pose Parameter Training
 	- 우선 위의 파라메터 J,W,P를 학습시키고 그 후 ![plot](https://user-images.githubusercontent.com/69032315/147599014-b1e832cd-d10c-4208-853a-080d5b325323.png)
  (rest template)과 ![plot](https://user-images.githubusercontent.com/69032315/147599027-b900546c-dc8f-4f84-b899-3fad33d750a4.png) (joint location), ![plot](https://user-images.githubusercontent.com/69032315/147599042-05734aa6-ab15-448b-99d8-9afa392c445c.png) (pose parameter), 들을 각 registration(j)에 적용시켜준다
+	- { ![plot](https://user-images.githubusercontent.com/69032315/147633677-d271f1c3-c79a-4aea-9fec-31402ca0bd60.png)
+(registration specific parameter)}, { ![plot](https://user-images.githubusercontent.com/69032315/147633685-d1ec91fa-e52f-40ee-982d-e2fb20a9a694.png)
+, ![plot](https://user-images.githubusercontent.com/69032315/147633689-c2233a8a-f261-440a-9bfb-3507d747fc9c.png)
+(subject specific parameter)}, {W,P(global specific parameter)}를 번갈아 가며 최적화 시켜준다(한번에 학습X) -> 그 후 행렬 J를 얻는다
+	- 위의 과정을 수행시키기 위해서 1개의 data term과 4개의 regularization term이 사용됨
+![plot](https://user-images.githubusercontent.com/69032315/147633700-f63f8cb8-0d00-4a8b-befb-9ec7f65e5b9e.png)
+ 
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147633706-97eed8bf-858d-4f4b-bb18-b8edae112944.png), s(j) = j 번째 registration의 index number= pose training set 의 mesh의 개수,  = pose training set의 subject의 수
+	-  ![plot](https://user-images.githubusercontent.com/69032315/147633738-3ff88b9e-0b72-49a3-8516-5a39f5482221.png) = sets of all rest pose , joints
+	- P(pose blend shapes) = 207 x 3 x 6800 = 4,278,690 parameters,	 W(skinning weights) = 4 x 3 x 6890 = 82,680 parameters, 	J(joint regressor matrix) = 3 x 6800 x 23 x 3 = 1,426,230 parameters
+
+	- 1번째 regularization term (대칭 regularization) :  ![plot](https://user-images.githubusercontent.com/69032315/147633776-625fc3b5-9c82-4c82-b7d4-af071faf68c2.png)
+의 대칭을 맞추기 위한 regularization
+![plot](https://user-images.githubusercontent.com/69032315/147633785-e88183d3-7cd8-41f2-9466-2e8d6e5aa288.png)
+ 
+		-  ![plot](https://user-images.githubusercontent.com/69032315/147633822-be5e672d-5f0a-4a6b-bc4e-d4a4a0c78802.png)
+,  ![plot](https://user-images.githubusercontent.com/69032315/147633833-3e349635-b414-4521-936f-9a27d9076615.png) (T를 좌우로 flipping을 한 값)
+		- 이것은 template mesh뿐만 아니라 joint location또한 대칭적인 값을 가지게 함
+	- 2번째 regularization term : 저자들의 모델은 24개의 신체부위로 손으로 세분화를 시켰다 -> 이 segmentation들의 중심점을 활용하여 초기 joint centers와 regressor 의 가중치를 설정한다( regressor 의 초기 joints들은 두 신체부위를 잊는 곳의 중심점으로 설정이 됨(관절)) 
+		- 이 regularization term은 초기 prediction을 할 때 각 subject 들이 최대한 prediction과 비슷한 형태를 가지도록 규제해준다 
+![plot](https://user-images.githubusercontent.com/69032315/147633842-2ff65244-fee5-41be-8f85-373001a7e0a5.png)
+ 
+
+	- 3번째 regularization term : pose-dependent blend shape의 과적합을 방지하기 위해 저자들은 zero값으로 만든다 
+![plot](https://user-images.githubusercontent.com/69032315/147633859-8321ef91-d82f-4cc8-a057-81436c286daa.png)
+ 
+		-   ![plot](https://user-images.githubusercontent.com/69032315/147633866-94b87b77-3431-42cb-b60d-76192f5b1778.png)
+= Frobenius norm(L2 norm을 matrix로 확장한 느낌)(matrix의 크기를 알고 싶을 때)
+
 	
 
 
