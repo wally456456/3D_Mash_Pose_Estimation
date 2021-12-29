@@ -45,7 +45,7 @@ Related work
  ![plot](https://user-images.githubusercontent.com/69032315/147693078-15cf67c6-32be-4a24-9d66-724b2bb2fa88.png)
  
  
-	- 저자들은  ![plot](https://user-images.githubusercontent.com/69032315/147693109-3dc994c8-7d76-4bca-b29d-db6f1c3db8d5.png)(given point)에서부터 clothing surface까지의 unsigned distance(주어지지 않은 거리)를 예측한다 -> point들을 충분히 Sampling을 해준 후 distance field와 running Marching Cubes를 thresholding함으로써 원하는 mesh를 reconstruct해줄 수 있다
+- 저자들은 ![plot](https://user-images.githubusercontent.com/69032315/147693109-3dc994c8-7d76-4bca-b29d-db6f1c3db8d5.png)(given point)에서부터 clothing surface까지의 unsigned distance(주어지지 않은 거리)를 예측한다 -> point들을 충분히 Sampling을 해준 후 distance field와 running Marching Cubes를 thresholding함으로써 원하는 mesh를 reconstruct해줄 수 있다
 			- Marching cubes : 3차원 스칼라장의 등고표면에 대한 다각화된 표면표시를 생성하기 위한 알고리즘  
 				- 스칼라장 : 수학과 물리학에서, 스칼라장(scalar field)은 (국소) 유클리드 공간의 각 점에 스칼라를 대응시킨 것이다. 예를 들어 3차원 공간 상의 온도 분포나 호수의 수압 분포 또는 공간상의 전위 분포나 위치 에너지 분포 등이 스칼라장에 해당된다.
 
