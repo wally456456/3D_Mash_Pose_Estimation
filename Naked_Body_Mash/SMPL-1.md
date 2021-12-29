@@ -232,13 +232,12 @@
 		-   ![plot](https://user-images.githubusercontent.com/69032315/147633866-94b87b77-3431-42cb-b60d-76192f5b1778.png)
 = Frobenius norm(L2 norm을 matrix로 확장한 느낌)(matrix의 크기를 알고 싶을 때)
 
-	- 4번째 regularization term : blend weights를 초기 가중치 ![plot](https://user-images.githubusercontent.com/69032315/147633894-ad5e3db7-5293-4fa6-9bc7-1b3b0eb45649.png)
- 로 규제하는 것![plot](https://user-images.githubusercontent.com/69032315/147633908-39bf339c-932a-468f-8eaa-f10241f40a3f.png) (초기 가중치는 단순히 segmentation을 diffusing 한 것을 계산한 것이다)
+	- 4번째 regularization term : blend weights를 초기 가중치 ![plot](https://user-images.githubusercontent.com/69032315/147633894-ad5e3db7-5293-4fa6-9bc7-1b3b0eb45649.png) 로 규제하는 것![plot](https://user-images.githubusercontent.com/69032315/147633908-39bf339c-932a-468f-8eaa-f10241f40a3f.png)(초기 가중치는 단순히 segmentation을 diffusing 한 것을 계산한 것이다)
 	- 종합적으로 {W,P}를 학습해주기 위한 term
 	
  ![plot](https://user-images.githubusercontent.com/69032315/147633926-b342adbb-da42-469b-9bd7-b3c1a4700b0c.png)
 
-	-   ![plot](https://user-images.githubusercontent.com/69032315/147633934-1190921b-e903-44fe-ba44-d6167c7ab11a.png)이 값들은 경험적으로 구한 값이다
+	-   ![plot](https://user-images.githubusercontent.com/69032315/147634689-fb8c2b69-c4e7-4795-bd61-13a4386d9792.png)이 값들은 경험적으로 구한 값이다
 	
 
 - Joint regressor
