@@ -232,9 +232,40 @@
 		-   ![plot](https://user-images.githubusercontent.com/69032315/147633866-94b87b77-3431-42cb-b60d-76192f5b1778.png)
 = Frobenius norm(L2 norm을 matrix로 확장한 느낌)(matrix의 크기를 알고 싶을 때)
 
+	- 4번째 regularization term : blend weights를 초기 가중치 ![plot](https://user-images.githubusercontent.com/69032315/147633894-ad5e3db7-5293-4fa6-9bc7-1b3b0eb45649.png)
+ 로 규제하는 것![plot](https://user-images.githubusercontent.com/69032315/147633908-39bf339c-932a-468f-8eaa-f10241f40a3f.png) (초기 가중치는 단순히 segmentation을 diffusing 한 것을 계산한 것이다)
+	- 종합적으로 {W,P}를 학습해주기 위한 term
+	
+ ![plot](https://user-images.githubusercontent.com/69032315/147633926-b342adbb-da42-469b-9bd7-b3c1a4700b0c.png)
+
+	-   ![plot](https://user-images.githubusercontent.com/69032315/147633934-1190921b-e903-44fe-ba44-d6167c7ab11a.png)이 값들은 경험적으로 구한 값이다
 	
 
+- Joint regressor
+	- 위의 값들을 최적화함으로써 각 train dataset subject들의 template mesh와 joint location 을 얻을 수 있다 하지만 저자들은 새로운 subject의 새로운 body shape의 joint location을 구하고 싶다
+	- 이를 위하여 regressor matrix J를 학습시켜 training bodies의 training joints들을 구한다
+	- 몇 가지 regression strategies를 사용하였지만 가장 잘 됬던 것은 J를 가중치들을 하나로 합치게 만드는 term을 사용한 non-negative least squares를 활용하여 학습시키는 것이다
+	- 이 approach는 joint를 예측하는데 사용되는 vertices들의 sparsity(희소성)을 증가시킨다 
+		- 가중치들을 양수로 만들고 하나로 합쳐주는 것은 joint들을 피부표면 밖의 위치에 predict해주는 것을 방지해 준다
 
+![plot](https://user-images.githubusercontent.com/69032315/147633963-4755aa73-0a13-4693-b038-4e4f84d36c02.png)
+
+
+- Shape Parameter Training
+	- 저자들의 shape space는  ![plot](https://user-images.githubusercontent.com/69032315/147633979-bb9a7248-069d-41d9-b9a6-f9f1fbadc634.png)
+의 mean과 (principal shape direction)들로 정의된다
+	- 위의 값들은 multi-shape database의 shape registration에 pose normalization을 진행해준 값에 PCA를 진행해주어 계산된다
+		- Pose normalization은 ![plot](https://user-images.githubusercontent.com/69032315/147633992-3ddb56f8-f9b0-47ed-8f48-fa1bad880944.png)  (raw registration)을 rest pose 상태인 registration ![plot](https://user-images.githubusercontent.com/69032315/147634009-33ecccf8-d0c4-4b0d-bb62-ec2f0ae4c03f.png)
+ 로 만들어준다 
+		- normalization 은 pose 와 shape가 따로 modeling되는 것이 중요하다
+		
+	- Registration ![plot](https://user-images.githubusercontent.com/69032315/147634035-55234b84-1c2e-43b5-86fd-aac6db37b204.png)을 pose-normalize 시키는 절차
+		- ![plot](https://user-images.githubusercontent.com/69032315/147634056-e2924e28-1a8a-4296-bb40-e0b0a52d7880.png) , ![plot](https://user-images.githubusercontent.com/69032315/147634065-c42c706a-2f96-4673-a5e9-2df84fdbcc09.png) = mean shape, mean joint location (from multi-pose database)
+		- ![plot](https://user-images.githubusercontent.com/69032315/147634073-eb599922-cd9b-455b-b2bf-5bb3209a195b.png) 은 모델과 Registration의 edge를 표현하는 것이다
+		- Edge를 구하는 방법은 pair of neighboring vertices들을 subtract해주어 얻는다
+		-  (average generic shape)를 사용하여 pose를 estimate하기 위해서 저자들은 다음 sum of squared edge differences들을 최소화 시킨다 
+  
+		- 위의 식은 저자들로 하여금 subject specific한 shape를 모르는 상태에서 좋은 pose estimate를 하게 한다
 
 
 
