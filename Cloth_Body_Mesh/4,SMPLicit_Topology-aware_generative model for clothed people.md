@@ -1,4 +1,4 @@
-# 논문 제목 : SMPLicit_Topology-aware_generative model for clothed people.md
+# 논문 제목 : SMPLicit_Topology-aware_generative model for clothed people
 ### 저자명 : Enric Corona, Albert Pumarola, Guillem Alenya, Gerard Pons-Moll, Francesc Moreno-Noguer
 
 # Abstract
